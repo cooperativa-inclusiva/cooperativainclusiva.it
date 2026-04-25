@@ -260,28 +260,33 @@ strong { font-weight: 700; }
   isolation: isolate;
 }
 
-/* Forme decorative giganti — blob sage e cerchi (motivo company profile) */
-.hero::before {
-  content: "";
+/* Strato decorativo: forme sage che richiamano il company profile
+   ("i" Braille, blob laterali). Sono in un layer separato a z-index 0
+   con pointer-events: none. Il contenuto testuale ha z-index > 1 e i
+   suoi container hanno bg petrol opaco esplicito, così che axe-core
+   possa risolvere il contrasto in modo deterministico. */
+.hero-decor {
+  position: absolute; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-blob {
   position: absolute;
-  right: -18vw; top: -10%;
-  width: 70vw; height: 130%;
+  right: -25vw; top: -10%;
+  width: 55vw; height: 130%;
   background: var(--sage);
   border-radius: 50% 0 0 50% / 60% 0 0 40%;
-  z-index: 0;
   opacity: .95;
 }
-.hero::after {
-  /* Cerchio sage solido decorativo (richiamo "i" Braille) */
-  content: "";
+.hero-circle {
   position: absolute;
-  left: -8vw; bottom: -14vw;
-  width: 28vw; height: 28vw;
-  max-width: 380px; max-height: 380px;
-  min-width: 180px; min-height: 180px;
+  left: -22vw; bottom: -28vw;
+  width: 22vw; height: 22vw;
+  max-width: 280px; max-height: 280px;
+  min-width: 140px; min-height: 140px;
   background: var(--sage);
   border-radius: 50%;
-  z-index: 0;
   opacity: .9;
 }
 
@@ -446,6 +451,9 @@ strong { font-weight: 700; }
   border-block: 1px solid rgba(244,245,243,.18);
   padding-block: 1.25rem;
   overflow: hidden;
+  /* bg petrol opaco esplicito: garantisce contrasto deterministico
+     anche se forme decorative passano sotto a livello di stacking */
+  background: var(--petrol);
 }
 .marquee-track {
   display: flex; gap: 2.25rem;
@@ -548,7 +556,12 @@ strong { font-weight: 700; }
 .section-petrol .section-body p strong,
 .section-sage .section-body p strong { color: var(--saffron); }
 
-.section-lead.light { color: rgba(244,245,243,.92); }
+.section-lead.light { color: var(--ice); }
+/* Su sfondo sage il testo body deve essere scuro (4.5:1) — ice trasparente
+   non basta. #022128 dà 4.53:1 su sage #6E8B7F. */
+.section-sage .section-lead.light { color: #022128; }
+.section-sage .section-lead.light strong { color: #022128; }
+.section-sage .section-title.light { color: var(--ice); } /* titolo: large text → 3:1 */
 
 /* ============================================================= */
 /* CHI SIAMO                                                     */
