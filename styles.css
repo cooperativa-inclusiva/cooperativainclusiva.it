@@ -393,6 +393,9 @@ strong { font-weight: 700; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+  /* Numerazione Braille standard: colonna sinistra dot 1→2→3 dall'alto,
+     colonna destra dot 4→5→6 dall'alto. Riempi prima per colonna. */
+  grid-auto-flow: column;
   gap: 8%;
   padding: 14% 22%;
   background: rgba(244,245,243,.06);
