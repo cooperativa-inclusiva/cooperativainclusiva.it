@@ -58,7 +58,15 @@
 
 /* ---------- RESET ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+/* `overflow-x: clip` su html (con fallback hidden) blocca l'overflow
+   orizzontale causato dalle forme decorative in vw senza creare un
+   contesto di scroll: `position: sticky` sull'header continua a funzionare. */
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -78,7 +86,7 @@ body {
   background: var(--ice);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img, svg { display: block; max-width: 100%; height: auto; }
