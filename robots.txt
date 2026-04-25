@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /identity/
+
+Sitemap: https://cooperativainclusiva.it/sitemap.xml
